@@ -23,3 +23,7 @@ export function rendreBloc(source) {
 export function rendreEnLigne(source) {
   return md.renderInline(source ?? '');
 }
+
+export function ajouterLiensVersExos(source) {
+  return String(source ?? '').replace(/exercice (\d+)/gi, '[exercice $1](#ex/$1)');
+}

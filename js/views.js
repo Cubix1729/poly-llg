@@ -1,5 +1,5 @@
 // Une fonction par vue ; chacune renvoie { titre, html }.
-import { echapper, rendreBloc, rendreEnLigne } from './render.js';
+import { ajouterLiensVersExos, echapper, rendreBloc, rendreEnLigne } from './render.js';
 import { FAIT, A_REVOIR, STATUTS, statutDe } from './store.js';
 
 const URL_ENONCE = 'https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf';
@@ -196,7 +196,7 @@ function vueExercice(exo) {
         <p class="exo-meta">${etoiles(exo.difficulte)}${classique}</p>
       </header>
       ${boutonsStatut(exo)}
-      <div class="enonce">${rendreBloc(exo.enonce_md)}</div>
+      <div class="enonce">${rendreBloc(ajouterLiensVersExos(exo.enonce_md))}</div>
       <details class="corrige" data-numero="${exo.numero}">
         <summary>Corrigé</summary>
         ${auteur}
