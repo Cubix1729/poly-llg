@@ -1,0 +1,205 @@
+:root {
+  --fond: #fafaf7;
+  --fond-carte: #fff;
+  --texte: #1c1c1a;
+  --discret: #62625c;
+  --bordure: #d8d8d0;
+  --accent: #1f4e8c;
+  --avert-fond: #fff4d6;
+  --avert-bord: #d9a400;
+  --etoile: #c98a00;
+  --h-entete: 3rem;
+  --l-menu: 19rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #16171a;
+    --fond-carte: #1f2125;
+    --texte: #e8e8e3;
+    --discret: #a0a09a;
+    --bordure: #3a3d42;
+    --accent: #8db8f0;
+    --avert-fond: #332b10;
+    --avert-bord: #8a6d00;
+    --etoile: #e8b030;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--h-entete) + 1rem); }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font: 1rem/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: var(--accent); }
+#entete {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--fond-carte);
+  border-bottom: 1px solid var(--bordure);
+}
+#entete nav {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25rem;
+  min-height: var(--h-entete); padding: 0 1rem;
+}
+#bouton-menu {
+  font: inherit; font-weight: 600; color: var(--accent); background: none;
+  border: 1px solid var(--bordure); border-radius: 6px; padding: 0.2rem 0.7rem; cursor: pointer;
+  min-height: 2.5rem;
+}
+#entete a { text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; min-height: 2.75rem; }
+#entete a:hover { text-decoration: underline; }
+#vue { padding: 1rem; outline: none; overflow-wrap: anywhere; }
+h1 { font-size: 1.5rem; line-height: 1.25; margin: 0.5rem 0 1rem; outline: none; }
+h2 { font-size: 1.1rem; margin: 0; }
+
+.avertissement {
+  background: var(--avert-fond); border-left: 4px solid var(--avert-bord);
+  padding: 0.7rem 0.9rem; border-radius: 4px;
+}
+.cartes { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.6rem; }
+.carte a {
+  display: block; padding: 0.75rem 0.9rem; text-decoration: none; color: inherit;
+  background: var(--fond-carte); border: 1px solid var(--bordure); border-radius: 8px;
+}
+.carte a:hover, .carte a:focus-visible { border-color: var(--accent); }
+.carte-titre { display: block; font-weight: 600; }
+.carte-detail { display: block; color: var(--discret); font-size: 0.9rem; }
+
+.ariane ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.25rem; margin: 0; padding: 0; font-size: 0.9rem; }
+.ariane li + li::before { content: "›"; margin-right: 0.25rem; color: var(--discret); }
+
+.exo {
+  background: var(--fond-carte); border: 1px solid var(--bordure); border-radius: 8px;
+  padding: 0.9rem; margin: 1rem 0; outline: none;
+}
+.exo:focus-visible { border-color: var(--accent); }
+.exo-titre { font-weight: 400; }
+.exo-meta { margin: 0.2rem 0 0.6rem; font-size: 0.9rem; color: var(--discret); }
+.etoiles { color: var(--etoile); letter-spacing: 0.05em; }
+.etoiles-vides { opacity: 0.25; }
+.badge {
+  border: 1px solid var(--bordure); border-radius: 999px; padding: 0.05rem 0.55rem; margin-left: 0.4rem;
+}
+.enonce > :first-child, .corrige-contenu > :first-child { margin-top: 0; }
+.enonce > :last-child, .corrige-contenu > :last-child { margin-bottom: 0; }
+.corrige { margin-top: 0.8rem; border-top: 1px solid var(--bordure); padding-top: 0.6rem; }
+.corrige summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; }
+.auteur { color: var(--discret); font-size: 0.9rem; margin: 0.4rem 0; }
+.sources { margin: 0.8rem 0 0; font-size: 0.9rem; }
+
+table { border-collapse: collapse; max-width: 100%; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--bordure); padding: 0.25rem 0.6rem; }
+img { max-width: 100%; height: auto; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.2rem 0; }
+
+.voisines { display: flex; justify-content: space-between; gap: 1rem; margin: 1.5rem 0 3rem; }
+.voisines a { flex: 1 1 0; max-width: 48%; text-decoration: none; padding: 0.6rem 0.8rem;
+  border: 1px solid var(--bordure); border-radius: 8px; background: var(--fond-carte); }
+.voisines .suivante { text-align: right; }
+.voisines .sens { display: block; color: var(--discret); font-size: 0.85rem; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Menu latéral : tiroir sur mobile, panneau fixe sur grand écran. */
+#page { display: flex; align-items: flex-start; }
+#vue { flex: 1 1 auto; min-width: 0; }
+#menu {
+  position: fixed; z-index: 20; top: 0; bottom: 0; left: 0;
+  width: min(var(--l-menu), 85vw); overflow-y: auto; padding: 0.5rem 0 2rem;
+  background: var(--fond-carte); border-right: 1px solid var(--bordure);
+  transform: translateX(-100%); visibility: hidden;
+  transition: transform 0.2s, visibility 0.2s;
+}
+.menu-ouvert #menu { transform: none; visibility: visible; }
+#voile { position: fixed; inset: 0; z-index: 15; background: rgb(0 0 0 / 0.45); }
+.menu-ouvert { overflow: hidden; }
+#menu summary { cursor: pointer; font-weight: 600; padding: 0.6rem 1rem; }
+#menu ul { list-style: none; margin: 0; padding: 0 0 0.4rem; }
+#menu li a {
+  display: block; padding: 0.5rem 1rem 0.5rem 1.6rem; font-size: 0.9rem;
+  text-decoration: none; color: inherit;
+}
+#menu li a:hover { background: var(--fond); }
+#menu a[aria-current] { color: var(--accent); font-weight: 600; background: var(--fond); }
+@media (min-width: 64rem) {
+  #bouton-menu, #voile { display: none; }
+  #menu {
+    position: sticky; top: var(--h-entete); height: calc(100vh - var(--h-entete));
+    flex: 0 0 var(--l-menu); width: var(--l-menu);
+    transform: none; visibility: visible; transition: none;
+  }
+  #vue { padding: 1rem 2rem; }
+  #vue > * { max-width: 44rem; margin-inline: auto; }
+}
+@media (max-width: 63.99rem) {
+  #vue { width: 100%; max-width: 44rem; margin: 0 auto; }
+}
+
+/* Étape 2 : statuts, avancement, vue « À revoir ». */
+.statut { display: flex; margin: 0 0 0.8rem; }
+.statut button {
+  flex: 1 1 0; font: inherit; font-size: 0.9rem; padding: 0.35rem 0.4rem; cursor: pointer; min-height: 2.75rem;
+  color: var(--texte); background: var(--fond); border: 1px solid var(--bordure); margin-left: -1px;
+}
+.statut button:first-child { border-radius: 6px 0 0 6px; margin-left: 0; }
+.statut button:last-child { border-radius: 0 6px 6px 0; }
+.statut button[aria-pressed="true"] {
+  color: #fff; background: var(--accent); border-color: var(--accent); font-weight: 600; position: relative;
+}
+@media (prefers-color-scheme: dark) {
+  .statut button[aria-pressed="true"] { color: #0e1116; }
+}
+.avancement { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.7rem; margin: 0.4rem 0; }
+.avancement progress { flex: 1 1 8rem; min-width: 6rem; height: 0.6rem; accent-color: var(--accent); }
+.avancement-texte { font-size: 0.85rem; color: var(--discret); }
+h2.section { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+.difficultes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.difficultes li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.8rem; }
+.diff-libelle { min-width: 6rem; }
+.groupe { margin-bottom: 2rem; }
+
+/* Étape 3a : compte et synchronisation. */
+#form-compte { display: grid; gap: 0.8rem; margin-block: 1rem; }
+#form-compte label { display: grid; gap: 0.25rem; }
+#form-compte input {
+  width: 100%; max-width: 24rem;
+  font: inherit; padding: 0.45rem 0.6rem; color: var(--texte); background: var(--fond-carte);
+  border: 1px solid var(--bordure); border-radius: 6px;
+}
+#form-compte .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+#form-compte button, #deconnexion {
+  font: inherit; padding: 0.45rem 0.9rem; cursor: pointer; color: var(--texte);
+  background: var(--fond); border: 1px solid var(--bordure); border-radius: 6px;
+}
+#form-compte button[value="connexion"] { color: #fff; background: var(--accent); border-color: var(--accent); }
+@media (prefers-color-scheme: dark) {
+  #form-compte button[value="connexion"] { color: #0e1116; }
+}
+#form-compte button:disabled { opacity: 0.6; cursor: wait; }
+#message-compte.erreur { color: #b3261e; }
+@media (prefers-color-scheme: dark) { #message-compte.erreur { color: #f2b8b5; } }
+#etat-sync { font-size: 0.8rem; color: var(--discret); margin-left: auto; align-self: center; }
+
+/* Étape 4 : finitions mobile et accessibilité. */
+.evitement {
+  position: absolute; left: 0.5rem; top: 0.5rem; z-index: 30; padding: 0.5rem 0.9rem;
+  background: var(--fond-carte); border: 2px solid var(--accent); border-radius: 6px;
+  transform: translateY(-200%);
+}
+.evitement:focus { transform: none; }
+.ariane a { display: inline-block; padding: 0.35rem 0; }
+@media (max-width: 40rem) {
+  html { scroll-padding-top: 6rem; }
+  #entete nav { gap: 0 0.9rem; padding: 0 0.75rem; }
+  #vue { padding: 0.75rem; }
+  .exo { padding: 0.75rem; }
+  .voisines { flex-direction: column; }
+  .voisines a { max-width: none; }
+  .statut button { font-size: 0.85rem; padding-inline: 0.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+@media (forced-colors: active) {
+  .statut button[aria-pressed="true"] { outline: 2px solid Highlight; }
+}

@@ -1,0 +1,4 @@
+katex 0.16.22 (dist/katex.min.js, katex.min.css, fonts/)
+markdown-it 14.1.0 (dist/markdown-it.min.js)
+markdown-it-texmath 1.0.0 (texmath.js)
+@supabase/supabase-js 2.118.0 (dist/umd/supabase.js)
