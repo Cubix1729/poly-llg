@@ -5,6 +5,7 @@ import {
 } from './views.js';
 import { definir, surChangement } from './store.js';
 import { rendreBloc } from './render.js';
+import { initialiserTheme } from './theme.js';
 import { etatActuel, surEtat, connecter, creerCompte, deconnecter, MDP_MIN } from './sync.js';
 
 const vue = document.getElementById('vue');
@@ -13,6 +14,8 @@ const lienRevoir = document.getElementById('lien-revoir');
 const boutonMenu = document.getElementById('bouton-menu');
 const voile = document.getElementById('voile');
 let index = null;
+
+initialiserTheme(document.getElementById('bouton-theme'));
 
 async function charger() {
   const reponse = await fetch('data/exercices.json');
