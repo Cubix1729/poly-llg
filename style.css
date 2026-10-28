@@ -223,3 +223,6 @@ h2.section { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
 @media (forced-colors: active) {
   .statut button[aria-pressed="true"] { outline: 2px solid Highlight; }
 }
+.focus-programmatique:focus {
+  outline: none;
+}

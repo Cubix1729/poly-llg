@@ -43,6 +43,7 @@ function afficher(resultat, defilerEnHaut = true) {
   const titre = vue.querySelector('h1');
   if (titre) {
     titre.tabIndex = -1;
+    titre.classList.add("focus-programmatique");
     titre.focus({ preventScroll: true });
   }
 }
