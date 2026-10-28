@@ -33,6 +33,7 @@ function analyserAdresse() {
   if ((m = chemin.match(/^ex\/(\d+)$/))) return { type: 'exercice', numero: Number(m[1]) };
   if ((m = chemin.match(/^(\d+)$/))) return { type: 'chapitre', numero: Number(m[1]) };
   if ((m = chemin.match(/^(\d+\.\d+)$/))) return { type: 'partie', numero: m[1] };
+  if ((m = chemin.match(/^(\d+\.\d+\.\d+)$/))) return { type: 'partie', numero: m[1] }; // cas spécifique des sous-parties
   return null;
 }
 
