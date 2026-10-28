@@ -123,11 +123,11 @@ export function vueAccueil(index) {
     html: `
       <h1>Poly LLG</h1>
       <p class="avertissement" role="note">
-        Transcription non officielle du polycopié de transition prépa du lycée Louis-le-Grand (H4) :
+        Transcription non officielle du polycopié de transition prépa des lycées Louis-le-Grand et Henri-IV :
         des erreurs ont pu s'y glisser. En cas de doute, se référer au document original,
         accessible depuis chaque exercice.
       </p>
-      <p>${pluriel(index.parNumero.size, 'exercice')} répartis en ${index.listeChapitres.length} chapitres.</p>
+      <p><b>${pluriel(index.parNumero.size, 'exercice')}</b> répartis en <b>${index.listeChapitres.length} chapitres.</b></p>
       <h2 class="section">Avancement global</h2>
       ${avancement(index, 'tout')}
       <h2 class="section">Chapitres</h2>
@@ -180,14 +180,14 @@ function boutonsStatut(exo) {
 
 function vueExercice(exo) {
   const titre = exo.titre ? ` <span class="exo-titre">${rendreEnLigne(exo.titre)}</span>` : '';
-  const classique = exo.is_classique ? ' <span class="badge">classique</span>' : '';
+  const classique = (exo.is_classique && exo.titre) ? ' <span class="badge">classique</span>' : '';
   const pageEnonce = exo.source?.poly_page;
   const pageCorrige = exo.source?.corrige_pages?.[0];
   const lienEnonce = pageEnonce
-    ? `<a href="${URL_ENONCE}#page=${Number(pageEnonce)}" target="_blank" rel="noopener noreferrer">Énoncé (PDF, p. ${Number(pageEnonce)})</a>` : '';
+    ? `<a href="${URL_ENONCE}#page=${Number(pageEnonce)}" target="_blank" rel="noopener noreferrer">Énoncé (p. ${Number(pageEnonce)})</a>` : '';
   const lienCorrige = pageCorrige
-    ? `<a href="${URL_CORRIGE}#page=${Number(pageCorrige)}" target="_blank" rel="noopener noreferrer">Corrigé (PDF, p. ${Number(pageCorrige)})</a>` : '';
-  const auteur = exo.auteur_corrige ? `<p class="auteur">Corrigé de ${echapper(exo.auteur_corrige)}</p>` : '';
+    ? `<a href="${URL_CORRIGE}#page=${Number(pageCorrige)}" target="_blank" rel="noopener noreferrer">Corrigé (p. ${Number(pageCorrige)})</a>` : '';
+  const auteur = exo.auteur_corrige ? `<p class="auteur">Par ${echapper(exo.auteur_corrige)}</p>` : '';
 
   return `
     <article class="exo" id="exo-${exo.numero}" tabindex="-1">
