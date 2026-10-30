@@ -125,7 +125,8 @@ export function vueAccueil(index) {
       <p class="avertissement" role="note">
         Transcription non officielle du polycopié de transition prépa des lycées Louis-le-Grand et Henri-IV :
         des erreurs ont pu s'y glisser. En cas de doute, se référer au document original,
-        accessible depuis chaque exercice.
+        accessible depuis chaque exercice. Les indices ne figurent pas dans le polycopié : ils ont été
+        rédigés par l'IA, et peuvent être de mauvaise qualité ou comporter des erreurs.
       </p>
       <p><b>${pluriel(index.parNumero.size, 'exercice')}</b> répartis en <b>${index.listeChapitres.length} chapitres.</b></p>
       <h2 class="section">Avancement global</h2>
@@ -178,6 +179,16 @@ function boutonsStatut(exo) {
   return `<div class="statut" role="group" aria-label="Statut de l'exercice ${exo.numero}" data-numero="${exo.numero}">${boutons}</div>`;
 }
 
+// Indices : un bouton les révèle un par un (rendu à la demande, voir main.js).
+function blocIndices(exo) {
+  const n = (exo.indices_md ?? []).filter((i) => typeof i === 'string').length;
+  if (!n) return '';
+  return `<div class="indices" data-numero="${exo.numero}">
+        <ol class="indices-liste" aria-live="polite"></ol>
+        <button type="button" class="indice-suivant">Indice 1 sur ${n}</button>
+      </div>`;
+}
+
 function vueExercice(exo) {
   const titre = exo.titre ? ` <span class="exo-titre">${rendreEnLigne(exo.titre)}</span>` : '';
   const classique = (exo.is_classique && exo.titre) ? ' <span class="badge">classique</span>' : '';
@@ -186,7 +197,7 @@ function vueExercice(exo) {
   const lienEnonce = pageEnonce
     ? `<a href="${URL_ENONCE}#page=${Number(pageEnonce)}" target="_blank" rel="noopener noreferrer">Énoncé (p. ${Number(pageEnonce)})</a>` : '';
   const lienCorrige = pageCorrige
-    ? `<a href="${URL_CORRIGE}#page=${Number(pageCorrige)}" target="_blank" rel="noopener noreferrer">Corrigé (p. ${Number(pageCorrige)})</a>` : '';
+    ? `<span class="lien-corrige"><a href="${URL_CORRIGE}#page=${Number(pageCorrige)}" target="_blank" rel="noopener noreferrer">Corrigé (p. ${Number(pageCorrige)})</a></span>` : '';
   const auteur = exo.auteur_corrige ? `<p class="auteur">Par ${echapper(exo.auteur_corrige)}</p>` : '';
 
   return `
@@ -197,12 +208,13 @@ function vueExercice(exo) {
       </header>
       ${boutonsStatut(exo)}
       <div class="enonce">${rendreBloc(ajouterLiensVersExos(exo.enonce_md))}</div>
+      ${blocIndices(exo)}
       <details class="corrige" data-numero="${exo.numero}">
         <summary>Corrigé</summary>
         ${auteur}
         <div class="corrige-contenu"></div>
       </details>
-      <p class="sources">${[lienEnonce, lienCorrige].filter(Boolean).join(' · ')}</p>
+      <p class="sources">${lienEnonce}${lienEnonce && lienCorrige ? '<span class="lien-corrige"> · </span>' : ''}${lienCorrige}</p>
     </article>`;
 }
 

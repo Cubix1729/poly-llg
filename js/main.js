@@ -4,8 +4,9 @@ import {
   contenuAvancement, exercicesARevoir, vueCompte,
 } from './views.js';
 import { definir, surChangement } from './store.js';
-import { rendreBloc } from './render.js';
+import { ajouterLiensVersExos, rendreBloc } from './render.js';
 import { initialiserTheme } from './theme.js';
+import { initialiserAides } from './aides.js';
 import { etatActuel, surEtat, connecter, creerCompte, deconnecter, MDP_MIN } from './sync.js';
 
 const vue = document.getElementById('vue');
@@ -16,6 +17,7 @@ const voile = document.getElementById('voile');
 let index = null;
 
 initialiserTheme(document.getElementById('bouton-theme'));
+initialiserAides(document.getElementById('bouton-aides'));
 
 async function charger() {
   const reponse = await fetch('data/exercices.json');
@@ -145,6 +147,28 @@ vue.addEventListener('click', (evt) => {
   const bouton = evt.target.closest('.statut button');
   if (!bouton) return;
   definir(Number(bouton.closest('.statut').dataset.numero), bouton.dataset.statut);
+});
+
+// Indices : un clic révèle le suivant, rendu à la demande comme les corrigés.
+vue.addEventListener('click', (evt) => {
+  const bouton = evt.target.closest('.indice-suivant');
+  if (!bouton) return;
+  const bloc = bouton.closest('.indices');
+  const exo = index.parNumero.get(Number(bloc.dataset.numero));
+  const indices = (exo?.indices_md ?? []).filter((i) => typeof i === 'string');
+  const liste = bloc.querySelector('.indices-liste');
+  const k = liste.children.length;
+  if (k >= indices.length) return;
+  const li = document.createElement('li');
+  li.tabIndex = -1;
+  li.innerHTML = rendreBloc(ajouterLiensVersExos(indices[k]));
+  liste.append(li);
+  if (k + 1 < indices.length) {
+    bouton.textContent = `Indice suivant (${k + 2} sur ${indices.length})`;
+  } else {
+    bouton.hidden = true;
+    li.focus({ preventScroll: true });
+  }
 });
 
 surChangement((numero, statut) => {

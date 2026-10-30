@@ -67,13 +67,16 @@ a { color: var(--accent); }
   border: 1px solid var(--bordure); border-radius: 6px; padding: 0.2rem 0.7rem; cursor: pointer;
   min-height: 2.5rem;
 }
-#bouton-theme {
+.reglages { display: flex; flex-wrap: nowrap; align-items: center; gap: 0.5rem; margin-left: auto; }
+#bouton-theme, #bouton-aides {
   font: inherit; color: var(--accent); background: none; cursor: pointer;
-  border: 1px solid var(--bordure); border-radius: 6px; margin-left: auto;
+  border: 1px solid var(--bordure); border-radius: 6px;
   min-width: 2.75rem; min-height: 2.75rem; display: inline-flex; align-items: center; justify-content: center;
 }
-#etat-sync:not([hidden]) + #bouton-theme { margin-left: 0.75rem; }
-#bouton-theme svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#bouton-aides[aria-pressed="true"] { color: var(--sur-accent); background: var(--accent); border-color: var(--accent); }
+.icone { display: none; }
+.icone, #bouton-theme svg, #bouton-aides svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#bouton-theme svg, #bouton-aides svg { width: 1.3rem; height: 1.3rem; }
 #entete a { text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; min-height: 2.75rem; }
 #entete a:hover { text-decoration: underline; }
 #vue { padding: 1rem; outline: none; overflow-wrap: anywhere; }
@@ -198,7 +201,7 @@ h2.section { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
 #form-compte button[value="connexion"] { color: var(--sur-accent); background: var(--accent); border-color: var(--accent); }
 #form-compte button:disabled { opacity: 0.6; cursor: wait; }
 #message-compte.erreur { color: var(--erreur); }
-#etat-sync { font-size: 0.8rem; color: var(--discret); margin-left: auto; align-self: center; }
+#etat-sync { font-size: 0.8rem; color: var(--discret); }
 
 /* Étape 4 : finitions mobile et accessibilité. */
 .evitement {
@@ -210,7 +213,12 @@ h2.section { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
 .ariane a { display: inline-block; padding: 0.35rem 0; }
 @media (max-width: 40rem) {
   html { scroll-padding-top: 6rem; }
-  #entete nav { gap: 0 0.9rem; padding: 0 0.75rem; }
+  #entete nav { gap: 0 0.3rem; padding: 0 0.5rem; }
+  .icone { display: block; width: 1.3rem; height: 1.3rem; }
+  .libelle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #bouton-menu { min-width: 2.75rem; min-height: 2.75rem; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+  #lien-revoir { gap: 0.2rem; }
+  .reglages { gap: 0.3rem; }
   #vue { padding: 0.75rem; }
   .exo { padding: 0.75rem; }
   .voisines { flex-direction: column; }
@@ -226,3 +234,17 @@ h2.section { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
 .focus-programmatique:focus {
   outline: none;
 }
+
+/* Indices : révélés un par un. */
+.indices { margin-top: 0.8rem; }
+.indices-liste { margin: 0 0 0.6rem; padding-left: 1.4rem; }
+.indices-liste li { margin: 0.4rem 0; outline: none; }
+.indices-liste li > :first-child { margin-top: 0; }
+.indices-liste li > :last-child { margin-bottom: 0; }
+.indice-suivant {
+  font: inherit; padding: 0.45rem 0.9rem; min-height: 2.75rem; cursor: pointer; color: var(--texte);
+  background: var(--fond); border: 1px solid var(--bordure); border-radius: 6px;
+}
+
+/* Mode sans aides : ni indices, ni corrigés. */
+:root[data-aides="sans"] :is(.indices, .corrige, .lien-corrige) { display: none; }

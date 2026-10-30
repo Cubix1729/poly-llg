@@ -8,6 +8,8 @@ Site statique pour consulter les 561 exercices du polycopié de transition Termi
 
  - Consultations des exercices par chapitre et par partie
  - Accès aux énoncés et aux corrigés, avec les liens vers les PDFs source
+ - Indices révélés un par un pour chaque exercice
+ - Mode « sans aides » (bouton en haut de page) qui masque corrigés et indices
  - Enregistrement de la progression avec un système de comptes ou dans le navigateur (`localStorage`)
  - Taux d'avancement par chapitre, partie ou difficulté
 
